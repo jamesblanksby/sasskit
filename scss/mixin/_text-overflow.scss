@@ -1,11 +1,17 @@
 /**
- * Applies single-line text overflow with optional style.
+ * Applies text overflow with optional style.
  * @since 1.0.0
  */
-@mixin text-overflow($overflow: ellipsis) {
+@mixin text-overflow($clamp: 1, $overflow: ellipsis) {
     & {
         overflow: hidden;
         text-overflow: $overflow;
-        white-space: nowrap;
+        @if $clamp == 1 {
+            white-space: nowrap;
+        } @else {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: $clamp;
+        }
     }
 }
