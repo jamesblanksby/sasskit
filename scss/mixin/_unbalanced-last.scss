@@ -1,0 +1,96 @@
+/**
+ * Targets the last (or all but the last) row of elements in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-last($mode, $negate, $nth, $selector) {
+    $start: 'nth-#{$mode}';
+    $end: 'nth-last-#{$mode}';
+    $range: ':#{$start}(#{$nth}n+1):#{$end}(-n+#{$nth})';
+
+    & {
+        @if $negate {
+            &:not(:where(#{$range}, #{$range} ~ #{$selector})) {
+                @content;
+            }
+        } @else {
+            &#{$range} {
+                @content;
+                & ~ #{$selector} {
+                    @content;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Targets the last row of sibling elements in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-last-nth($mode, $nth, $selector) {
+    & {
+        @include unbalanced-last($mode, false, $nth, $selector) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Targets the last row of child sibling elements in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-last-child($nth, $selector) {
+    & {
+        @include unbalanced-last-nth('child', $nth, $selector) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Targets the last row of sibling elements of the same type in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-last-of-type($nth, $selector) {
+    & {
+        @include unbalanced-last-nth('of-type', $nth, $selector) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Targets all but the last row of sibling elements in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-not-last-nth($mode, $nth, $selector) {
+    & {
+        @include unbalanced-last($mode, true, $nth, $selector) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Targets all but the last row of child sibling elements in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-not-last-child($nth, $selector) {
+    & {
+        @include unbalanced-not-last-nth('child', $nth, $selector) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Targets all but the last row of sibling elements of the same type in an unbalanced grid.
+ * @since 1.2.0
+ */
+@mixin unbalanced-not-last-of-type($nth, $selector) {
+    & {
+        @include unbalanced-not-last-nth('of-type', $nth, $selector) {
+            @content;
+        }
+    }
+}
