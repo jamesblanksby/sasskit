@@ -22,3 +22,27 @@
         }
     }
 }
+
+/**
+ * Wraps content in a min-width media query.
+ * @since 1.0.0
+ */
+@mixin media-min($min) {
+    & {
+        @include media-query(null, $min) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Wraps content in a max-width media query.
+ * @since 1.0.0
+ */
+@mixin media-max($max) {
+    & {
+        @include media-query($max) {
+            @content;
+        }
+    }
+}
