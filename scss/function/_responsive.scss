@@ -1,0 +1,9 @@
+/**
+ * Calculates responsive value.
+ * @since 1.3.0
+ */
+@function responsive($value, $upper: null, $lower: null) {
+    $min: (math.round(scale($value)) * 1px);
+    $max: $value;
+    @return range($min, $max, $upper, $lower);
+}

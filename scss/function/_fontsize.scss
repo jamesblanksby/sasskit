@@ -1,9 +1,9 @@
 /**
  * Calculates responsive font size.
  * @since 1.1.0
+ * @deprecated 1.3.0
+ * @see responsive()
  */
 @function fontsize($fontsize, $upper: null, $lower: null) {
-    $min: (math.round(scale($fontsize)) * 1px);
-    $max: $fontsize;
-    @return range($min, $max, $upper, $lower);
+    @return responsive($fontsize, $upper, $lower);
 }
