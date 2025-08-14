@@ -3,6 +3,6 @@
  * @since 1.0.0
  */
 @function space($space, $upper: null, $lower: null, $base: 8) {
-    $value: ($space * $base);
+    $value: (($space * $base) * 1px);
     @return responsive($value, $upper, $lower);
 }
