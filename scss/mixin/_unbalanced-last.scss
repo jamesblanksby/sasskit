@@ -8,16 +8,16 @@
     $range: ':#{$start}(#{$nth}n+1):#{$end}(-n+#{$nth})';
 
     & {
-        @if $negate {
-            &:not(:where(#{$range}, #{$range} ~ #{$selector})) {
+        @if not $negate {
+            &#{$range} {
+                @content;
+            }
+            &#{$range} ~ #{$selector} {
                 @content;
             }
         } @else {
-            &#{$range} {
+            &:not(:where(#{$range}, #{$range} ~ #{$selector})) {
                 @content;
-                & ~ #{$selector} {
-                    @content;
-                }
             }
         }
     }
