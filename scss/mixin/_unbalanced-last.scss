@@ -3,9 +3,7 @@
  * @since 1.2.0
  */
 @mixin unbalanced-last($mode, $negate, $nth, $selector) {
-    $start: 'nth-#{$mode}';
-    $end: 'nth-last-#{$mode}';
-    $range: ':#{$start}(#{$nth}n+1):#{$end}(-n+#{$nth})';
+    $range: ':nth-#{$mode}(#{$nth}n+1):nth-last-#{$mode}(-n+#{$nth})';
 
     & {
         @if not $negate {

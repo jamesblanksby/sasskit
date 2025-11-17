@@ -1,22 +1,22 @@
 /**
- * Applies media query using optional max and/or min breakpoints.
- * @since 1.0.0
+ * Applies media query using max and/or min breakpoints.
+ * @since 1.5.0
  */
-@mixin media-query($max: null, $min: null) {
+@mixin media-query($property, $max: null, $min: null) {
     $max: if($max != null, if(unit($max) == 'px', $max, nth($breakpoint, $max)), null);
     $min: if($min != null, if(unit($min) == 'px', $min, nth($breakpoint, $min)), null);
 
     & {
         @if $max != null and $min != null {
-            @media (max-width: #{$max}) and (min-width: (#{$min + 1px})) {
+            @media (max-#{$property}: #{$max}) and (min-#{$property}: (#{$min + 1px})) {
                 @content;
             }
         } @else if $max != null {
-            @media (max-width: #{$max}) {
+            @media (max-#{$property}: #{$max}) {
                 @content;
             }
         } @else if $min != null {
-            @media (min-width: (#{$min + 1px})) {
+            @media (min-#{$property}: (#{$min + 1px})) {
                 @content;
             }
         }
@@ -24,24 +24,96 @@
 }
 
 /**
- * Wraps content in a min-width media query.
- * @since 1.0.0
+ * Applies min media query.
+ * @since 1.5.0
  */
-@mixin media-min($min) {
+@mixin media-min($property, $min) {
     & {
-        @include media-query(null, $min) {
+        @include media-query($property, null, $min) {
             @content;
         }
     }
 }
 
 /**
- * Wraps content in a max-width media query.
- * @since 1.0.0
+ * Applies max media query.
+ * @since 1.5.0
  */
-@mixin media-max($max) {
+@mixin media-max($property, $max) {
     & {
-        @include media-query($max) {
+        @include media-query($property, $max) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies width media query using max and/or min breakpoints.
+ * @since 1.5.0
+ */
+@mixin width-query($max: null, $min: null) {
+    & {
+        @include media-query('width', $max, $min) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies min-width media query.
+ * @since 1.5.0
+ */
+@mixin width-min($min) {
+    & {
+        @include media-min('width', $min) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies max-width media query.
+ * @since 1.5.0
+ */
+@mixin width-max($max) {
+    & {
+        @include media-max('width', $max) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies height media query using max and/or min breakpoints.
+ * @since 1.5.0
+ */
+@mixin height-query($max: null, $min: null) {
+    & {
+        @include media-query('height', $max, $min) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies min-height media query.
+ * @since 1.5.0
+ */
+@mixin height-min($min) {
+    & {
+        @include media-min('height', $min) {
+            @content;
+        }
+    }
+}
+
+/**
+ * Applies max-height media query.
+ * @since 1.5.0
+ */
+@mixin height-max($max) {
+    & {
+        @include media-max('height', $max) {
             @content;
         }
     }
